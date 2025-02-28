@@ -36,7 +36,7 @@ def create_task():
     }
     tasks.append(new_task)
 
-    return jsonify(new_task)
+    return jsonify(new_task), 201
 
 
 @app.route('/tasks/<int:task_id>', methods=['PUT'])
@@ -50,13 +50,13 @@ def update_task(task_id):
 
     task['title'] = request.json.get('title', task['title'])
     task['description'] = request.json.get('description', task['description'])
-    return jsonify(task)
+    return jsonify(task), 200
 
 @app.route('/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
     task = find_task(task_id)
     tasks.remove(task)
-    return jsonify({"message": "Task deleted"})
+    return jsonify({"message": "Task deleted"}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)
